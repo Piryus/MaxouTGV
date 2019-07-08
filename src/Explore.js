@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
-import Icon from "./components/Icon";
+import { View, StyleSheet } from 'react-native';
 import SearchBar from "./components/SearchBar";
 import DateBar from "./components/DateBar";
+import { Divider, Text} from "react-native-elements";
+import Recommendations from "./components/Recommendations";
 
 export default class HomeScreen extends Component {
   render() {
@@ -13,9 +13,7 @@ export default class HomeScreen extends Component {
              <SearchBar />
              <DateBar />
           </View>
-          <View style={styles.resultBox}>
-            <Text>List goes here</Text>
-          </View>
+          <Recommendations />
         </View>
     );
   }
@@ -24,18 +22,13 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   layout : {
     flex: 1,
+      marginHorizontal: 10,
   },
   searchBox : {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-  },
-  resultBox : {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+      marginBottom: 15,
   },
   departInput: {
     fontSize: 24,
