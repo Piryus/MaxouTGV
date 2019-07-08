@@ -7,10 +7,8 @@ export default class SearchBar extends Component {
     render() {
         return(
             <View style={styles.box}>
-                <View style={styles.input}>
-                    <Icon name={'train'} size={25} color={theme.LIGHT_GRAY} style={styles.trainIcon} />
-                    <Text style={styles.inputText}>D'où souhaitez vous partir ?</Text>
-                </View>
+                <Icon name={'train'} size={25} color={theme.LIGHT_GRAY} style={styles.trainIcon} />
+                <Text style={styles.inputText}>D'où souhaitez vous partir ?</Text>
             </View>
         );
     }
@@ -33,16 +31,13 @@ const styles = StyleSheet.create({
         elevation: 7,
         marginTop: 20,
         marginHorizontal: 25,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     trainIcon: {
         marginLeft: 10,
         marginRight: 10,
-    },
-    input: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
     },
     inputText: {
         color: theme.MEDIUM_GRAY,
