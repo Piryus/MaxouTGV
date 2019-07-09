@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import SearchBar from "./components/SearchBar";
 import DateBar from "./components/DateBar";
-import { Divider, Text} from "react-native-elements";
 import Recommendations from "./components/Recommendations";
 
 export default class HomeScreen extends Component {
