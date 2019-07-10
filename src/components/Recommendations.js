@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { Text } from "react-native-elements";
 import DestTile from "./DestTile";
+import theme from '../../theme';
 
 export default class Recommendations extends Component {
     render() {
         return(
             <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
-                <Text h4>Recommandés</Text>
+                <Text h4 style={styles.recoText} >Recommandés</Text>
                 <DestTile origin={'Paris'} destination={'Lyon'} duration={'2h04'} departure={'13h37'} style={styles.destTile} />
                 <DestTile origin={'Paris'} destination={'Lyon'} duration={'2h04'} departure={'13h37'} style={styles.destTile} />
                 <DestTile origin={'Paris'} destination={'Lyon'} duration={'2h04'} departure={'13h37'} style={styles.destTile} />
@@ -26,7 +27,10 @@ export default class Recommendations extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-      zIndex: 999,
+        marginBottom: 5,
+    },
+    recoText: {
+      color: theme.PRIMARY_COLOR,
     },
     destContainer: {
         flexDirection: 'column',
