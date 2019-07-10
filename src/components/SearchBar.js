@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../theme'
 import Icon from "./Icon";
 
 export default class SearchBar extends Component {
     render() {
         return(
-            <View style={styles.box}>
+            <TouchableOpacity onPress={this.props.onPress} style={styles.box}>
                 <Icon name={'train'} size={25} color={theme.LIGHT_GRAY} style={styles.trainIcon} />
-                <Text style={styles.inputText}>D'où souhaitez vous partir ?</Text>
-            </View>
+                <Text style={styles.inputText}>D'où souhaitez-vous partir ?</Text>
+            </TouchableOpacity>
         );
     }
 }
