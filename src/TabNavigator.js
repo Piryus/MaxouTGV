@@ -2,7 +2,8 @@ import React from 'react';
 import HomeScreen from './Explore';
 import AlertsScreen from './Alerts'
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import Icon from './components/Icon'
+import Icon from './components/Icon';
+import theme from '../theme';
 
 const TabNavigator = createBottomTabNavigator({
     Explorer: HomeScreen,
@@ -22,7 +23,7 @@ const TabNavigator = createBottomTabNavigator({
             },
         }),
         tabBarOptions: {
-            activeTintColor: '#2196F3',
+            activeTintColor: theme.PRIMARY_COLOR,
             inactiveTintColor: 'gray',
         },
     });
