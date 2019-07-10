@@ -1,6 +1,6 @@
 import React from 'react';
-import HomeScreen from './Explore';
-import AlertsScreen from './Alerts'
+import HomeScreen from './screens/Explore';
+import AlertsScreen from './screens/Alerts'
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import Icon from './components/Icon';
 import theme from '../theme';
