@@ -5,7 +5,7 @@ import Icon from "./Icon";
 export default class CityListing extends Component {
     render() {
         return(
-            <View style={styles.cityListing}>
+            <View style={[styles.cityListing, this.props.style]}>
                 <Icon name={'pin'} size={15} style={styles.cityPin}/>
                 <Text style={styles.cityName}>{this.props.cityName}</Text>
             </View>

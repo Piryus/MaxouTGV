@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TextInput, StyleSheet, View } from 'react-native';
+import { TextInput, StyleSheet, View, ScrollView } from 'react-native';
 import theme from '../../theme'
 import CityListing from "../components/CityListing";
 
@@ -7,33 +7,49 @@ export default class TownScreen extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
-            cityText: ''
+            cityText: '',
+            citiesMatchingSearch: [],
         };
     }
 
     render() {
+        let cities = [];
+        let resultsNumber = this.state.citiesMatchingSearch.length;
+        if (resultsNumber > 15)
+            resultsNumber = 15;
+        for (let i = 0; i < resultsNumber; i++) {
+            if (i !== 0) {
+                cities.push(<View style={styles.separator} />);
+            }
+            cities.push(<CityListing cityName={this.state.citiesMatchingSearch[i].fields.intitule_gare} style={styles.cityListing} />);
+        }
+
         return (
             <View>
                 <View style={styles.inputArea}>
                     <TextInput placeholder="D'où souhaitez-vous partir ?"
                                value={this.state.cityText}
-                               onChangeText={(cityText) => this.setState({cityText})}
+                               onChangeText={cityText => this.input(cityText)}
                                style={styles.inputText}
                     />
                 </View>
-                <View style={styles.citiesArea}>
-                    <CityListing cityName={'Marseille'} />
-                    <View style={styles.separator}/>
-                    <CityListing cityName={'Lyon'} />
-                    <View style={styles.separator}/>
-                    <CityListing cityName={'Paris'} />
-                    <View style={styles.separator}/>
-                    <CityListing cityName={'Tourcoing'} />
-                </View>
+                <ScrollView contentContainerStyle={styles.citiesArea} style={styles.citiesAreaWrapper}>
+                    {cities}
+                </ScrollView>
             </View>
         );
     }
+
+    input(cityText) {
+        let newCitiesMatching = data.filter(gare => gare.fields.intitule_gare.toLowerCase().startsWith(cityText.toLowerCase()));
+        this.setState({
+            cityText: cityText,
+            citiesMatchingSearch: newCitiesMatching,
+        });
+    }
 }
+
+const data = require('../../assets/data/referentiel-gares-voyageurs.json');
 
 const styles = StyleSheet.create({
     inputArea:  {
@@ -60,15 +76,23 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginHorizontal: 20,
     },
+    citiesAreaWrapper: {
+        marginBottom: 105,
+    },
     citiesArea: {
-        flexDirection: 'column',
         marginHorizontal: 30,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
     },
     separator: {
-        marginVertical: 15,
+        marginBottom: 15,
         width: '100%',
         borderBottomColor: theme.LIGHT_GRAY,
         borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    cityListing: {
+        marginBottom: 15,
     }
 });
 
