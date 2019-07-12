@@ -30,6 +30,7 @@ export default class TownScreen extends Component<Props> {
                     <TextInput placeholder="D'où souhaitez-vous partir ?"
                                value={this.state.cityText}
                                onChangeText={cityText => this.input(cityText)}
+                               autoFocus={true}
                                style={styles.inputText}
                     />
                 </View>
