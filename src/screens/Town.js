@@ -7,7 +7,7 @@ export default class TownScreen extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
-            cityText: '',
+            cityText: this.props.navigation.getParam('city', ''),
             citiesMatchingSearch: [],
         };
     }
@@ -19,9 +19,15 @@ export default class TownScreen extends Component<Props> {
             resultsNumber = 15;
         for (let i = 0; i < resultsNumber; i++) {
             if (i !== 0) {
-                cities.push(<View style={styles.separator} />);
+                cities.push(<View key={i} style={styles.separator} />);
             }
-            cities.push(<CityListing cityName={this.state.citiesMatchingSearch[i].fields.intitule_gare} style={styles.cityListing} />);
+            let cityName = this.state.citiesMatchingSearch[i].fields.intitule_gare;
+            cities.push(<CityListing
+                cityName={cityName}
+                key={cityName}
+                style={styles.cityListing}
+                onPress={() => this.handlePressOnCity(cityName)}
+            />);
         }
 
         return (
@@ -34,7 +40,9 @@ export default class TownScreen extends Component<Props> {
                                style={styles.inputText}
                     />
                 </View>
-                <ScrollView contentContainerStyle={styles.citiesArea} style={styles.citiesAreaWrapper}>
+                <ScrollView keyboardShouldPersistTaps={'always'}
+                            contentContainerStyle={styles.citiesArea}
+                            style={styles.citiesAreaWrapper}>
                     {cities}
                 </ScrollView>
             </View>
@@ -47,6 +55,16 @@ export default class TownScreen extends Component<Props> {
             cityText: cityText,
             citiesMatchingSearch: newCitiesMatching,
         });
+    }
+
+    handlePressOnCity(cityName) {
+        this.setState({
+            cityText: cityName,
+            citiesMatchingSearch: [],
+        });
+        this.props.navigation.navigate('Home', {
+            city: cityName
+        })
     }
 }
 

@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme from '../../theme'
 import Icon from "./Icon";
 
 export default class SearchBar extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        let city = this.props.value;
+        let textStyle = styles.inputText;
+        if (city === '') {
+            city = "D'où souhaitez-vous partir ?"
+            textStyle = styles.inputTextPlaceholder
+        }
         return(
             <TouchableOpacity onPress={this.props.onPress} style={styles.box}>
                 <Icon name={'train'} size={25} color={theme.LIGHT_GRAY} style={styles.trainIcon} />
-                <Text style={styles.inputText}>D'où souhaitez-vous partir ?</Text>
+                <Text style={textStyle}>{city}</Text>
             </TouchableOpacity>
         );
     }
@@ -39,7 +49,10 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-    inputText: {
+    inputTextPlaceholder: {
         color: theme.MEDIUM_GRAY,
+    },
+    inputText: {
+        color: 'black',
     }
 });

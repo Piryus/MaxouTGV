@@ -7,11 +7,20 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import TownScreen from "./Town";
 
 class HomeScreen extends Component {
+    constructor(props) {
+        super(props);
+    }
+
   render() {
+        const city = this.props.navigation.getParam('city', '');
     return (
         <View style={styles.layout}>
          <View style={styles.searchBox}>
-             <SearchBar onPress={() => this.props.navigation.navigate('Town')} />
+             <SearchBar value={city}
+                        onPress={() => this.props.navigation.navigate('Town',{
+                            city: city
+                        })}
+             />
              <DateBar />
           </View>
           <Recommendations />
