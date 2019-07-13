@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import SearchBar from "../components/SearchBar";
-import DateBar from "../components/DateBar";
 import Recommendations from "../components/Recommendations";
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 import TownScreen from "./Town";
 
 class HomeScreen extends Component {
@@ -11,50 +10,65 @@ class HomeScreen extends Component {
         super(props);
     }
 
-  render() {
+    render() {
         const city = this.props.navigation.getParam('city', '');
-    return (
-        <View style={styles.layout}>
-         <View style={styles.searchBox}>
-             <SearchBar value={city}
-                        onPress={() => this.props.navigation.navigate('Town',{
-                            city: city
-                        })}
-             />
-             <DateBar />
-          </View>
-          <Recommendations />
-        </View>
-    );
-  }
+        const date = '';
+        return (
+            <View style={styles.layout}>
+                <View style={styles.searchBox}>
+                    <SearchBar message={city}
+                               placeholder={"D'où souhaitez-vous partir ?"}
+                               iconName={'train'}
+                               onPress={() => this.pressCityBar(city)}
+                    />
+                    <SearchBar message={date}
+                               placeholder={"À quelle date ?"}
+                               iconName={'calendar'}
+                               onPress={() => this.pressDateBar(date)}
+                    />
+                </View>
+                <Recommendations/>
+            </View>
+        );
+    }
+
+    pressCityBar(city) {
+        this.props.navigation.navigate('Town', {
+            city: city
+        })
+    }
+
+    pressDateBar(date) {
+        
+    }
 }
 
 const styles = StyleSheet.create({
-  layout : {
-    flex: 1,
-      marginHorizontal: 10,
-  },
-  searchBox : {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-      marginBottom: 15,
-  },
-  departInput: {
-    fontSize: 24,
-    margin: 50,
-  },
+    layout: {
+        flex: 1,
+        marginHorizontal: 10,
+    },
+    searchBox: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        marginBottom: 15,
+    },
+    departInput: {
+        fontSize: 24,
+        margin: 50,
+    },
 });
 
 const ExploreNavigator = createStackNavigator({
-    Home : {
-        screen: HomeScreen,
-        navigationOptions: {
-            header: null,
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                header: null,
+            },
         },
-    },
         Town: {
-        screen: TownScreen,
+            screen: TownScreen,
         },
     },
     {

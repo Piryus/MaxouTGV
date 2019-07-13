@@ -4,20 +4,18 @@ import theme from '../../theme'
 import Icon from "./Icon";
 
 export default class SearchBar extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        let city = this.props.value;
+        const iconName = this.props.iconName;
+        const pressFunction = this.props.onPress;
+        let city = this.props.message;
         let textStyle = styles.inputText;
         if (city === '') {
-            city = "D'où souhaitez-vous partir ?"
-            textStyle = styles.inputTextPlaceholder
+            city = this.props.placeholder;
+            textStyle = styles.inputTextPlaceholder;
         }
         return(
-            <TouchableOpacity onPress={this.props.onPress} style={styles.box}>
-                <Icon name={'train'} size={25} color={theme.LIGHT_GRAY} style={styles.trainIcon} />
+            <TouchableOpacity onPress={pressFunction} style={styles.box}>
+                <Icon name={iconName} size={25} color={theme.LIGHT_GRAY} style={styles.icon} />
                 <Text style={textStyle}>{city}</Text>
             </TouchableOpacity>
         );
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
     },
-    trainIcon: {
+    icon: {
         marginLeft: 10,
         marginRight: 10,
     },
