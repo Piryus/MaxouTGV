@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform, DatePickerAndroid} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import Recommendations from "../components/Recommendations";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
-import TownScreen from "./Town";
+import CityScreen from "./City";
+import DateScreen from './Date';
 
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          date: '',
+        }
     }
 
     render() {
         const city = this.props.navigation.getParam('city', '');
-        const date = '';
+        const selectedDate = this.getSelectedDate();
         return (
             <View style={styles.layout}>
                 <View style={styles.searchBox}>
@@ -21,10 +25,10 @@ class HomeScreen extends Component {
                                iconName={'train'}
                                onPress={() => this.pressCityBar(city)}
                     />
-                    <SearchBar message={date}
+                    <SearchBar message={selectedDate}
                                placeholder={"À quelle date ?"}
                                iconName={'calendar'}
-                               onPress={() => this.pressDateBar(date)}
+                               onPress={() => this.pressDateBar()}
                     />
                 </View>
                 <Recommendations/>
@@ -32,14 +36,110 @@ class HomeScreen extends Component {
         );
     }
 
+
+    getSelectedDate() {
+        const selectedDate = this.state.date;
+        if (selectedDate === '') {
+            return ''
+        }
+
+        let date;
+        switch (selectedDate.getDay()) {
+            case 0:
+                date = 'Dim. ';
+                break;
+            case 1:
+                date = 'Lun. ';
+                break;
+            case 2:
+                date = 'Mar. ';
+                break;
+            case 3:
+                date = 'Mer. ';
+                break;
+            case 4:
+                date = 'Jeu. ';
+                break;
+            case 5:
+                date = 'Ven. ';
+                break;
+            case 6:
+                date = 'Sam. ';
+                break;
+
+        }
+        date += selectedDate.getDate();
+        date += ' ';
+        switch (selectedDate.getMonth()) {
+            case 0:
+                date += 'Janvier';
+                break;
+            case 1:
+                date += 'Février';
+                break;
+            case 2:
+                date += 'Mars';
+                break;
+            case 3:
+                date += 'Avril';
+                break;
+            case 4:
+                date += 'Mai';
+                break;
+            case 5:
+                date += 'Juin';
+                break;
+            case 6:
+                date += 'Juillet';
+                break;
+            case 7:
+                date += 'Août';
+                break;
+            case 8:
+                date += 'Septembre';
+                break;
+            case 9:
+                date += 'Octobre';
+                break;
+            case 10:
+                date += 'Novembre';
+                break;
+            case 11:
+                date += 'Décembre';
+                break;
+        }
+        return date
+    }
+
     pressCityBar(city) {
-        this.props.navigation.navigate('Town', {
+        this.props.navigation.navigate('City', {
             city: city
         })
     }
 
-    pressDateBar(date) {
-        
+    pressDateBar() {
+        if (Platform.OS === 'iOS') {
+            this.selectDateIos()
+        } else {
+            this.selectDateAndroid()
+        }
+    }
+
+    async selectDateAndroid() {
+        try {
+            const {action, year, month, day} = await DatePickerAndroid.open({
+                date: new Date(),
+                minDate: new Date(),
+                maxDate: new Date().setDate(new Date().getDate() + 30),
+            });
+            if (action !== DatePickerAndroid.dismissedAction) {
+                this.setState({
+                    date: new Date(year, month, day)
+                });
+            }
+        } catch ({code, message}) {
+            console.warn('Cannot open date picker', message);
+        }
     }
 }
 
@@ -67,8 +167,11 @@ const ExploreNavigator = createStackNavigator({
                 header: null,
             },
         },
-        Town: {
-            screen: TownScreen,
+        City: {
+            screen: CityScreen,
+        },
+        Date: {
+            screen: DateScreen,
         },
     },
     {
