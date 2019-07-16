@@ -16,7 +16,7 @@ class HomeScreen extends Component {
 
     render() {
         const city = this.props.navigation.getParam('city', '');
-        const selectedDate = this.getSelectedDate();
+        const selectedDate = this.getFormattedDate();
         return (
             <View style={styles.layout}>
                 <View style={styles.searchBox}>
@@ -37,7 +37,7 @@ class HomeScreen extends Component {
     }
 
 
-    getSelectedDate() {
+    getFormattedDate() {
         const selectedDate = this.state.date;
         if (selectedDate === '') {
             return ''
