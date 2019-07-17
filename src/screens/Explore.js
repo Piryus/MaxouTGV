@@ -5,18 +5,27 @@ import Recommendations from "../components/Recommendations";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CityScreen from "./City";
 import DateScreen from './Date';
+import SearchResults from '../components/SearchResults'
 
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          date: '',
+            date: '',
         }
     }
 
     render() {
         const city = this.props.navigation.getParam('city', '');
         const selectedDate = this.getFormattedDate();
+
+        let content;
+        if (city !== '' && selectedDate !== '') {
+            content = <SearchResults city={city} date={this.state.date}/>;
+        } else {
+            content = <Recommendations />;
+        }
+
         return (
             <View style={styles.layout}>
                 <View style={styles.searchBox}>
@@ -31,11 +40,10 @@ class HomeScreen extends Component {
                                onPress={() => this.pressDateBar()}
                     />
                 </View>
-                <Recommendations/>
+                {content}
             </View>
         );
     }
-
 
     getFormattedDate() {
         const selectedDate = this.state.date;
