@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TextInput, StyleSheet, View, ScrollView } from 'react-native';
+import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
 import theme from '../../theme'
 import CityListing from "../components/CityListing";
 
@@ -8,8 +8,23 @@ export default class CityScreen extends Component<Props> {
         super(props);
         this.state = {
             cityText: this.props.navigation.getParam('city', ''),
+            cities: [],
             citiesMatchingSearch: [],
         };
+    }
+
+    componentDidMount() {
+        fetch('https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=100')
+            .then(response => response.json())
+            .then((responseJson) => {
+                let cityList = new Set();
+                responseJson.records.forEach(item => {
+                    cityList.add(item.fields.origine)
+                });
+                this.setState({
+                    cities: Array.from(cityList)
+                })
+            });
     }
 
     render() {
@@ -19,9 +34,9 @@ export default class CityScreen extends Component<Props> {
             resultsNumber = 15;
         for (let i = 0; i < resultsNumber; i++) {
             if (i !== 0) {
-                cities.push(<View key={i} style={styles.separator} />);
+                cities.push(<View key={i} style={styles.separator}/>);
             }
-            let cityName = this.state.citiesMatchingSearch[i].fields.intitule_gare;
+            let cityName = this.state.citiesMatchingSearch[i];
             cities.push(<CityListing
                 cityName={cityName}
                 key={cityName}
@@ -50,7 +65,7 @@ export default class CityScreen extends Component<Props> {
     }
 
     input(cityText) {
-        let newCitiesMatching = data.filter(gare => gare.fields.intitule_gare.toLowerCase().startsWith(cityText.toLowerCase()));
+        const newCitiesMatching = this.state.cities.filter(journey => journey.toLowerCase().startsWith(cityText.toLowerCase()));
         this.setState({
             cityText: cityText,
             citiesMatchingSearch: newCitiesMatching,
@@ -68,10 +83,8 @@ export default class CityScreen extends Component<Props> {
     }
 }
 
-const data = require('../../assets/data/referentiel-gares-voyageurs.json');
-
 const styles = StyleSheet.create({
-    inputArea:  {
+    inputArea: {
         backgroundColor: 'white',
         height: 80,
         marginBottom: 20,
