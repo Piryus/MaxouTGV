@@ -14,15 +14,15 @@ export default class CityScreen extends Component<Props> {
     }
 
     componentDidMount() {
-        fetch('https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=1000')
+        fetch('https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=origine')
             .then(response => response.json())
             .then((responseJson) => {
                 let cityList = new Set();
-                responseJson.records.forEach(item => {
-                    cityList.add(item.fields.origine)
+                responseJson.facet_groups[0].facets.forEach(facet => {
+                    cityList.add(facet.name)
                 });
                 this.setState({
-                    cities: Array.from(cityList)
+                    cities: Array.from(cityList).sort()
                 })
             });
     }
