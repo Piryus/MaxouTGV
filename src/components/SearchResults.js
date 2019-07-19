@@ -16,12 +16,12 @@ export default class SearchResults extends Component {
         const city = this.props.city;
         const date = this.props.date;
         const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
-        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=1000&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
+        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
-                responseJson.records.forEach(item => {
+                responseJson.facet_groups[0].facets.forEach(facet => {
                     this.setState({
-                        destTiles: new Set(this.state.destTiles).add(item.fields.destination)
+                        destTiles: new Set(this.state.destTiles).add(facet.name)
                     });
                 });
             });
@@ -34,12 +34,12 @@ export default class SearchResults extends Component {
         this.setState({
             destTiles: new Set(),
         });
-        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=1000&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
+        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
-                responseJson.records.forEach(item => {
+                responseJson.facet_groups[0].facets.forEach(facet => {
                     this.setState({
-                        destTiles: new Set(this.state.destTiles).add(item.fields.destination)
+                        destTiles: new Set(this.state.destTiles).add(facet.name)
                     });
                 });
             });
@@ -49,7 +49,7 @@ export default class SearchResults extends Component {
         return (
             <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
                 <Text h4 style={styles.recoText}>{this.state.destTiles.size} destinations trouvées</Text>
-                {Array.from(this.state.destTiles).map((dest, index) => (
+                {Array.from(this.state.destTiles).sort().map((dest, index) => (
                 <CityTile key={dest}
                           destination={dest}
                           style={styles.destTile}/>
