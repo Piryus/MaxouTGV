@@ -48,7 +48,7 @@ export default class SearchResults extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
-                <Text h4 style={styles.recoText}>Trajets disponibles</Text>
+                <Text h4 style={styles.recoText}>{this.state.destTiles.size} destinations trouvées</Text>
                 {Array.from(this.state.destTiles).map((dest, index) => (
                 <CityTile key={dest}
                           destination={dest}
