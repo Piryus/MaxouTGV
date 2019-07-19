@@ -24,9 +24,12 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         backgroundColor: 'white',
         borderColor: theme.LIGHT_GRAY,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'stretch',
     },
     trip: {
-        top: 38,
+        textTransform: 'capitalize',
         fontSize: 20,
         color: 'white',
         fontWeight: '600',
