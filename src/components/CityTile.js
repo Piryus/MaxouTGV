@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, ImageBackground} from 'react-native';
+import {StyleSheet, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import theme from '../../theme';
 
 export default class CityTile extends Component {
@@ -9,9 +9,11 @@ export default class CityTile extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('../../assets/lyon.jpg')} style={[styles.tile, this.props.style]}>
-                <Text style={styles.trip}>{this.props.destination}</Text>
-            </ImageBackground>
+            <TouchableOpacity>
+                <ImageBackground source={require('../../assets/lyon.jpg')} style={[styles.tile, this.props.style]}>
+                    <Text style={styles.trip}>{this.props.destination}</Text>
+                </ImageBackground>
+            </TouchableOpacity>
         );
     }
 }
