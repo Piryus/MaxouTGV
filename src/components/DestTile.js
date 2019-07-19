@@ -1,15 +1,32 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, ImageBackground} from 'react-native';
 import theme from '../../theme';
 import Icon from "./Icon";
 
 export default class DestTile extends Component {
+    constructor(props) {
+        super(props);
+        // Compute arrival time
+        const departure = this.props.departure.split(':');
+        let tempHour = parseInt(departure[0]);
+        let tempMins = parseInt(departure[1]);
+        let tempDate = new Date();
+        tempDate.setHours(tempHour, tempMins);
+        const tempDuration = this.props.duration.split(':');
+        tempHour = parseInt(tempDuration[0]);
+        tempMins = parseInt(tempDuration[1]);
+        tempDate.setHours(tempDate.getHours() + tempHour);
+        tempDate.setMinutes(tempDate.getMinutes() + tempMins);
+        this.arrival = ('0' + tempDate.getHours()).slice(-2) + ':' + ('0' + tempDate.getMinutes()).slice(-2);
+    }
+
+
     render() {
-        return(
+        return (
             <ImageBackground source={require('../../assets/lyon.jpg')} style={[styles.tile, this.props.style]}>
                 <Text style={styles.trip}>{this.props.origin} → {this.props.destination}</Text>
-                <Text style={styles.duration}><Icon name={'stopwatch'} size={15} /> {this.props.duration}</Text>
-                <Text style={styles.hours}><Icon name={'clock'} size={15} /> {this.props.departure} - 15h08</Text>
+                <Text style={styles.duration}><Icon name={'stopwatch'} size={15}/> {this.props.duration}</Text>
+                <Text style={styles.hours}><Icon name={'clock'} size={15}/> {this.props.departure} - {this.arrival}</Text>
             </ImageBackground>
         );
     }
@@ -26,7 +43,7 @@ const styles = StyleSheet.create({
     },
     trip: {
         top: 38,
-        fontSize: 25,
+        fontSize: 15,
         color: 'white',
         fontWeight: '600',
     },
