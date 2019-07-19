@@ -14,7 +14,7 @@ export default class CityScreen extends Component<Props> {
     }
 
     componentDidMount() {
-        fetch('https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=100')
+        fetch('https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=1000')
             .then(response => response.json())
             .then((responseJson) => {
                 let cityList = new Set();
@@ -30,8 +30,6 @@ export default class CityScreen extends Component<Props> {
     render() {
         let cities = [];
         let resultsNumber = this.state.citiesMatchingSearch.length;
-        if (resultsNumber > 15)
-            resultsNumber = 15;
         for (let i = 0; i < resultsNumber; i++) {
             if (i !== 0) {
                 cities.push(<View key={i} style={styles.separator}/>);
