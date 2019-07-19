@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {Text} from "react-native-elements";
-import DestTile from "./DestTile";
+import CityTile from "./CityTile";
 import theme from '../../theme';
 
 export default class SearchResults extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            destTiles : [],
+            destTiles : new Set(),
         }
     }
 
@@ -20,15 +20,8 @@ export default class SearchResults extends Component {
             .then(response => response.json())
             .then((responseJson) => {
                 responseJson.records.forEach(item => {
-                    let dest = {
-                        origin: item.fields.origine,
-                        recordid: item.recordid,
-                        destination: item.fields.destination,
-                        duration: '14:03',
-                        departure: item.fields.heure_depart
-                    };
                     this.setState({
-                        destTiles: this.state.destTiles.concat(dest)
+                        destTiles: new Set(this.state.destTiles).add(item.fields.destination)
                     });
                 });
             });
@@ -39,37 +32,26 @@ export default class SearchResults extends Component {
         const date = nextProps.date;
         const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
         this.setState({
-            destTiles: [],
+            destTiles: new Set(),
         });
         fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
                 responseJson.records.forEach(item => {
-                    let dest = {
-                        origin: item.fields.origine,
-                        recordid: item.recordid,
-                        destination: item.fields.destination,
-                        duration: '14:03',
-                        departure: item.fields.heure_depart
-                    };
                     this.setState({
-                        destTiles: this.state.destTiles.concat(dest)
+                        destTiles: new Set(this.state.destTiles).add(item.fields.destination)
                     });
                 });
             });
     }
 
     render() {
-
         return (
             <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
                 <Text h4 style={styles.recoText}>Trajets disponibles</Text>
-                {this.state.destTiles.map((dest, index) => (
-                <DestTile origin={dest.origin}
-                          key={dest.recordid}
-                          destination={dest.destination}
-                          duration={dest.duration}
-                          departure={dest.departure}
+                {Array.from(this.state.destTiles).map((dest, index) => (
+                <CityTile key={dest}
+                          destination={dest}
                           style={styles.destTile}/>
                           ))}
             </ScrollView>
