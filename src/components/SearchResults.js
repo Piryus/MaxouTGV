@@ -16,7 +16,7 @@ export default class SearchResults extends Component {
         const city = this.props.city;
         const date = this.props.date;
         const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
-        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
+        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=1000&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
                 responseJson.records.forEach(item => {
@@ -34,7 +34,7 @@ export default class SearchResults extends Component {
         this.setState({
             destTiles: new Set(),
         });
-        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
+        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=1000&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
                 responseJson.records.forEach(item => {
