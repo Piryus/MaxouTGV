@@ -15,25 +15,23 @@ export default class SearchResults extends Component {
     componentWillMount() {
         const city = this.props.city;
         const date = this.props.date;
-        const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
-        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
-            .then(response => response.json())
-            .then((responseJson) => {
-                responseJson.facet_groups[0].facets.forEach(facet => {
-                    this.setState({
-                        destTiles: new Set(this.state.destTiles).add(facet.name)
-                    });
-                });
-            });
+        this.updateDataFromAPI(city, date);
     }
 
     componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any): void {
         const city = nextProps.city;
         const date = nextProps.date;
+        this.updateDataFromAPI(city, date);
+    }
+
+    updateDataFromAPI(city, date) {
+        // Format the date correctly to call the API
         const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
+        // Clears the list of destination
         this.setState({
             destTiles: new Set(),
         });
+        // Fetches the data from the SNCF API and updates the current state with the available destinations
         fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
