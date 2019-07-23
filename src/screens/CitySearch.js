@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
 import theme from '../../theme'
 import CityListing from "../components/CityListing";
 
-export default class CityScreen extends Component<Props> {
+export default class CitySearchScreen extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {

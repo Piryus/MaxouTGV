@@ -3,7 +3,7 @@ import {View, StyleSheet, Platform, DatePickerAndroid} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import Recommendations from "../components/Recommendations";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
-import CityScreen from "./City";
+import CitySearchScreen from "./CitySearch";
 import DateScreen from './Date';
 import SearchResults from '../components/SearchResults'
 
@@ -120,7 +120,7 @@ class HomeScreen extends Component {
     }
 
     pressCityBar(city) {
-        this.props.navigation.navigate('City', {
+        this.props.navigation.navigate('CitySearch', {
             city: city
         })
     }
@@ -175,8 +175,8 @@ const ExploreNavigator = createStackNavigator({
                 header: null,
             },
         },
-        City: {
-            screen: CityScreen,
+        CitySearch: {
+            screen: CitySearchScreen,
         },
         Date: {
             screen: DateScreen,
