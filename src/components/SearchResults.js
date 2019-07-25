@@ -3,8 +3,9 @@ import {StyleSheet, ScrollView} from 'react-native';
 import {Text} from "react-native-elements";
 import CityTile from "./CityTile";
 import theme from '../../theme';
+import {withNavigation} from 'react-navigation';
 
-export default class SearchResults extends Component {
+class SearchResults extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,10 +51,17 @@ export default class SearchResults extends Component {
                 {Array.from(this.state.destTiles).sort().map((dest, index) => (
                 <CityTile key={dest}
                           destination={dest}
+                          onPress={() => this.onCityTiledPress(dest)}
                           style={styles.destTile}/>
                           ))}
             </ScrollView>
         );
+    }
+
+    onCityTiledPress(destination) {
+        this.props.navigation.navigate('City', {
+            city: destination
+        })
     }
 }
 
@@ -74,3 +82,5 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 });
+
+export default withNavigation(SearchResults);

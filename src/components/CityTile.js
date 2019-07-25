@@ -9,7 +9,7 @@ export default class CityTile extends Component {
 
     render() {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.props.onPress}>
                 <ImageBackground source={require('../../assets/lyon.jpg')} style={[styles.tile, this.props.style]}>
                     <Text style={styles.trip}>{this.props.destination}</Text>
                 </ImageBackground>

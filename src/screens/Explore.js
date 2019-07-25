@@ -5,7 +5,8 @@ import Recommendations from "../components/Recommendations";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CitySearchScreen from "./CitySearch";
 import DateScreen from './Date';
-import SearchResults from '../components/SearchResults'
+import SearchResults from '../components/SearchResults';
+import CityScreen from './City';
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -181,6 +182,12 @@ const ExploreNavigator = createStackNavigator({
         Date: {
             screen: DateScreen,
         },
+        City: {
+            screen: CityScreen,
+            navigationOptions: {
+                header: null,
+            },
+        }
     },
     {
         initialRouteName: "Home",
