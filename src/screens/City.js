@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
-import BackButton from "../components/BackButton";
 import theme from '../../theme';
 
 export default class CityScreen extends Component {
+    static navigationOptions = ({navigation}) => {
+      return ({
+          title: navigation.getParam('city', '???')
+      });
+    };
+
     constructor(props) {
         super(props);
     }
 
     render() {
         return (
-            <View style={styles.layout}>
-                <View style={styles.header}>
-                    <BackButton style={styles.backButton}/>
-                </View>
+            <View>
+
             </View>
         );
     }

@@ -184,9 +184,6 @@ const ExploreNavigator = createStackNavigator({
         },
         City: {
             screen: CityScreen,
-            navigationOptions: {
-                header: null,
-            },
         }
     },
     {
