@@ -1,12 +1,37 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import theme from '../../theme';
+import Icon from "../components/Icon";
 
 export default class CityScreen extends Component {
     static navigationOptions = ({navigation}) => {
-      return ({
-          title: navigation.getParam('city', '???')
-      });
+        const departure = navigation.getParam('departure', '???');
+        const destination = navigation.getParam('destination', '???');
+        const date = navigation.getParam('date', '???');
+        const headerStyles = StyleSheet.create({
+            headerTitleLayout: {
+                flexDirection: 'column',
+            },
+            headerTitleTripText: {
+                color: 'white',
+                fontSize: 15,
+                fontWeight: '700',
+            },
+            headerDate: {
+                color: theme.LIGHT_GRAY,
+            }
+        });
+        const title =
+            <View style={headerStyles.headerTitleLayout}>
+                <Text style={headerStyles.headerTitleTripText}>{departure} <Icon name='arrow-forward' size={15}/> {destination}</Text>
+                <Text style={headerStyles.headerDate}>{date.toString()}</Text>
+            </View>;
+        return ({
+            headerTitle: title,
+            headerStyle: {
+                backgroundColor: theme.PRIMARY_COLOR,
+            }
+        });
     };
 
     constructor(props) {
@@ -28,16 +53,4 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },
-    header: {
-        height: 80,
-        backgroundColor: theme.PRIMARY_COLOR,
-        alignSelf: 'stretch',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start'
-    },
-    backButton: {
-        marginTop: 20,
-        marginLeft: 20,
-    }
 });

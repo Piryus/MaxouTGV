@@ -60,7 +60,9 @@ class SearchResults extends Component {
 
     onCityTiledPress(destination) {
         this.props.navigation.navigate('City', {
-            city: destination
+            destination: destination,
+            departure: this.props.city,
+            date: this.props.date
         })
     }
 }
