@@ -30,7 +30,8 @@ export default class CityScreen extends Component {
             headerTitle: title,
             headerStyle: {
                 backgroundColor: theme.PRIMARY_COLOR,
-            }
+            },
+            headerTintColor: '#fff'
         });
     };
 
