@@ -5,7 +5,7 @@ import Recommendations from "../components/Recommendations";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CitySearchScreen from "./CitySearch";
 import DateScreen from './Date';
-import SearchResults from '../components/SearchResults';
+import SearchResults from '../components/SearchResultsCities';
 import CityScreen from './City';
 
 class HomeScreen extends Component {

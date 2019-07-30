@@ -5,11 +5,11 @@ import CityTile from "./CityTile";
 import theme from '../../theme';
 import {withNavigation} from 'react-navigation';
 
-class SearchResults extends Component {
+class SearchResultsCities extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            destTiles : new Set(),
+            cityTiles : new Set(),
         }
     }
 
@@ -30,7 +30,7 @@ class SearchResults extends Component {
         const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
         // Clears the list of destination
         this.setState({
-            destTiles: new Set(),
+            cityTiles: new Set(),
         });
         // Fetches the data from the SNCF API and updates the current state with the available destinations
         fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
@@ -38,7 +38,7 @@ class SearchResults extends Component {
             .then((responseJson) => {
                 responseJson.facet_groups[0].facets.forEach(facet => {
                     this.setState({
-                        destTiles: new Set(this.state.destTiles).add(facet.name)
+                        cityTiles: new Set(this.state.cityTiles).add(facet.name)
                     });
                 });
             });
@@ -47,8 +47,8 @@ class SearchResults extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
-                <Text h4 style={styles.recoText}>{this.state.destTiles.size} destinations trouvées</Text>
-                {Array.from(this.state.destTiles).sort().map((dest, index) => (
+                <Text h4 style={styles.recoText}>{this.state.cityTiles.size} destinations trouvées</Text>
+                {Array.from(this.state.cityTiles).sort().map((dest, index) => (
                 <CityTile key={dest}
                           destination={dest}
                           onPress={() => this.onCityTiledPress(dest)}
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withNavigation(SearchResults);
+export default withNavigation(SearchResultsCities);
