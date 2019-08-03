@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import theme from '../../theme';
 import Icon from "../components/Icon";
+import DestTile from "../components/DestTile";
+import SearchResultsFares from "../components/SearchResultsFares";
 
 export default class CityScreen extends Component {
     static navigationOptions = ({navigation}) => {
@@ -40,10 +42,11 @@ export default class CityScreen extends Component {
     }
 
     render() {
+        const departure = navigation.getParam('departure', '???');
+        const destination = navigation.getParam('destination', '???');
+        const date = navigation.getParam('date', '???');
         return (
-            <View>
-
-            </View>
+            <SearchResultsFares departure={departure} destination={destination} date={date} />
         );
     }
 }
