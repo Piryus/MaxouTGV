@@ -1,50 +1,74 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
+import {Text} from "react-native-elements";
+import DestTile from "./DestTile";
+import theme from "../../theme";
 
 export default class SearchResultsFares extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fareTiles: [],
+            fares: new Set(),
         }
     }
 
-    updateDataFromAPI(city, date) {
+    updateDataFromAPI(cityDeparture, cityArrival, date) {
         // Format the date correctly to call the API
         const formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
         // Clears the list of destination
         this.setState({
-            cityTiles: new Set(),
+            fares: new Set(),
         });
         // Fetches the data from the SNCF API and updates the current state with the available destinations
-        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
+        fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=10&refine.date=' + formattedDate + '&refine.origine=' + cityDeparture + '&refine.destination=' + cityArrival + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
-                responseJson.facet_groups[0].facets.forEach(facet => {
+                responseJson.records.forEach(record => {
                     this.setState({
-                        cityTiles: new Set(this.state.cityTiles).add(facet.name)
+                        fares: new Set(this.state.fares).add(record)
                     });
                 });
             });
     }
-    
-    componentDidMount(): void {
+
+    componentWillMount(): void {
         const departure = this.props.departure;
         const destination = this.props.destination;
         const date = this.props.date;
+        this.updateDataFromAPI(departure, destination, date)
     }
 
     render() {
-        return(
-            <View style={styles.layout}>
-
-            </View>
+        return (
+            <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
+                <Text h4 style={styles.recoText}>{this.state.fares.size} destinations trouvées</Text>
+                {Array.from(this.state.fares).map((record, index) => (
+                    <DestTile key={record.recordid}
+                              origin={record.fields.origine}
+                              destination={record.fields.destination}
+                              departure={record.fields.heure_depart}
+                              duration={'2:06'}
+                              style={styles.destTile}/>
+                ))}
+            </ScrollView>
         );
     }
 }
 
-const styles = Stylesheet.create({
-    layout: {
-        marginHorizontal: 20,
-    }
+const styles = StyleSheet.create({
+    wrapper: {
+        marginBottom: 5,
+    },
+    recoText: {
+        color: theme.PRIMARY_COLOR,
+    },
+    destContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        marginHorizontal: 10,
+    },
+    destTile: {
+        marginTop: 10,
+    },
 });

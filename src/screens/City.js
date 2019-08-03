@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import theme from '../../theme';
 import Icon from "../components/Icon";
-import DestTile from "../components/DestTile";
 import SearchResultsFares from "../components/SearchResultsFares";
+import {withNavigation} from 'react-navigation';
 
-export default class CityScreen extends Component {
+class CityScreen extends Component {
     static navigationOptions = ({navigation}) => {
         const departure = navigation.getParam('departure', '???');
         const destination = navigation.getParam('destination', '???');
@@ -42,9 +42,9 @@ export default class CityScreen extends Component {
     }
 
     render() {
-        const departure = navigation.getParam('departure', '???');
-        const destination = navigation.getParam('destination', '???');
-        const date = navigation.getParam('date', '???');
+        const departure = this.props.navigation.getParam('departure', '???');
+        const destination = this.props.navigation.getParam('destination', '???');
+        const date = this.props.navigation.getParam('date');
         return (
             <SearchResultsFares departure={departure} destination={destination} date={date} />
         );
@@ -58,3 +58,5 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
 });
+
+export default withNavigation(CityScreen);
