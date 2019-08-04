@@ -9,17 +9,17 @@ export default class Recommendations extends Component {
         return(
             <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
                 <Text h4 style={styles.recoText} >Recommandés</Text>
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:59'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
-                <DestTile origin={'Paris'} destination={'Lyon'} duration={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:59'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
+                <DestTile origin={'Paris'} destination={'Lyon'} arrival={'2:04'} departure={'13:37'} style={styles.destTile} />
             </ScrollView>
         );
     }
