@@ -7,4 +7,8 @@ export default {
     SECONDARY_COLOR: '#ffab00',
     SECONDARY_COLOR_LIGHT: '#ffdd4b',
     SECONDARY_COLOR_DARK: '#c67c00',
+    PRIMARY_TEXT: '#212121',
+    SECONDARY_TEXT: '#757575',
+    DIVIDER_COLOR: '#BDBDBD',
+    WEIGHT_SEMIBOLD: '600',
 }
