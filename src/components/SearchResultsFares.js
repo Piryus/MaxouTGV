@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Text} from "react-native-elements";
 import DestTile from "./DestTile";
 import theme from "../../theme";
@@ -40,17 +40,19 @@ export default class SearchResultsFares extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
-                <Text h4 style={styles.recoText}>{this.state.fares.size} destinations trouvées</Text>
-                {Array.from(this.state.fares).map((record, index) => (
-                    <DestTile key={record.recordid}
-                              origin={record.fields.origine}
-                              destination={record.fields.destination}
-                              departure={record.fields.heure_depart}
-                              arrival={record.fields.heure_arrivee}
-                              style={styles.destTile}/>
-                ))}
-            </ScrollView>
+            <View>
+                <Text style={styles.countTrainsText}>{this.state.fares.size} trains disponibles</Text>
+                <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
+                    {Array.from(this.state.fares).map((record, index) => (
+                        <DestTile key={record.recordid}
+                                  origin={record.fields.origine}
+                                  destination={record.fields.destination}
+                                  departure={record.fields.heure_depart}
+                                  arrival={record.fields.heure_arrivee}
+                                  style={styles.destTile}/>
+                    ))}
+                </ScrollView>
+            </View>
         );
     }
 }
@@ -59,8 +61,12 @@ const styles = StyleSheet.create({
     wrapper: {
         marginBottom: 5,
     },
-    recoText: {
-        color: theme.PRIMARY_COLOR,
+    countTrainsText: {
+        textAlign: 'center',
+        marginVertical: 10,
+        fontSize: 15,
+        color: theme.MEDIUM_GRAY,
+        fontWeight: theme.WEIGHT_SEMIBOLD,
     },
     destContainer: {
         flexDirection: 'column',
