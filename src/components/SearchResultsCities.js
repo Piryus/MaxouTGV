@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView, View} from 'react-native';
 import {Text} from "react-native-elements";
 import CityTile from "./CityTile";
 import theme from '../../theme';
 import {withNavigation} from 'react-navigation';
+import Recommendations from "./Recommendations";
 
 class SearchResultsCities extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             cityTiles : new Set(),
         }
     }
@@ -31,6 +33,7 @@ class SearchResultsCities extends Component {
         // Clears the list of destination
         this.setState({
             cityTiles: new Set(),
+            loading: true,
         });
         // Fetches the data from the SNCF API and updates the current state with the available destinations
         fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
@@ -41,20 +44,32 @@ class SearchResultsCities extends Component {
                         cityTiles: new Set(this.state.cityTiles).add(facet.name)
                     });
                 });
-            });
+            })
+            .then(() => this.setState({
+                loading: false
+            }));
     }
 
     render() {
-        return (
-            <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
+        let content;
+        if (!this.state.loading) {
+            content = <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
                 <Text h4 style={styles.recoText}>{this.state.cityTiles.size} destinations trouvées</Text>
                 {Array.from(this.state.cityTiles).sort().map((dest, index) => (
-                <CityTile key={dest}
-                          destination={dest}
-                          onPress={() => this.onCityTiledPress(dest)}
-                          style={styles.destTile}/>
-                          ))}
-            </ScrollView>
+                    <CityTile key={dest}
+                              destination={dest}
+                              onPress={() => this.onCityTiledPress(dest)}
+                              style={styles.destTile}/>
+                ))}
+            </ScrollView>;
+        } else {
+            content = <View><Text>LOADING</Text></View>;
+        }
+
+        return (
+            <View>
+                {content}
+            </View>
         );
     }
 
