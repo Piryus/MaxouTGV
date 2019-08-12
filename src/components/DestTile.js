@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, ImageBackground} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import theme from '../../theme';
 import Icon from "./Icon";
 
@@ -22,11 +22,11 @@ export default class DestTile extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('../../assets/lyon.jpg')} style={[styles.tile, this.props.style]}>
-                <Text style={styles.trip}>{this.props.origin} → {this.props.destination}</Text>
+            <View style={[styles.tile, this.props.style]}>
                 <Text style={styles.duration}><Icon name={'stopwatch'} size={15}/> {this.duration}</Text>
                 <Text style={styles.hours}><Icon name={'clock'} size={15}/> {this.props.departure} - {this.props.arrival}</Text>
-            </ImageBackground>
+                <Text style={styles.trip}>{this.props.origin} <Icon name={'arrow-forward'} size={15}/> {this.props.destination}</Text>
+            </View>
         );
     }
 }
@@ -35,28 +35,27 @@ const styles = StyleSheet.create({
     tile: {
         padding: 5,
         height: 80,
-        borderWidth: 1,
-        borderRadius: 3,
+        borderRadius: 10,
         backgroundColor: 'white',
-        borderColor: theme.LIGHT_GRAY,
+        flexDirection: 'row',
     },
     trip: {
-        top: 38,
+        padding: 5,
         fontSize: 15,
-        color: 'white',
-        fontWeight: '600',
+        color: theme.PRIMARY_TEXT,
+        fontWeight: theme.WEIGHT_SEMIBOLD,
+        alignSelf: 'flex-end',
+        position: 'absolute',
     },
     duration: {
-        position: 'absolute',
         padding: 5,
-        color: 'white',
-        fontWeight: '600',
+        color: theme.MEDIUM_GRAY,
+        fontWeight: theme.WEIGHT_SEMIBOLD,
     },
     hours: {
-        position: 'absolute',
         padding: 5,
-        alignSelf: 'flex-end',
-        color: 'white',
+        color: theme.MEDIUM_GRAY,
         fontWeight: '900',
+        marginLeft: 'auto',
     }
 });
