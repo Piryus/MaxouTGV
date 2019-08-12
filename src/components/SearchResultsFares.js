@@ -40,9 +40,9 @@ export default class SearchResultsFares extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.wrapper}>
                 <Text style={styles.countTrainsText}>{this.state.fares.size} trains disponibles</Text>
-                <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
+                <ScrollView contentContainerStyle={styles.destContainer} >
                     {Array.from(this.state.fares).map((record, index) => (
                         <DestTile key={record.recordid}
                                   origin={record.fields.origine}
@@ -59,11 +59,14 @@ export default class SearchResultsFares extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        marginBottom: 5,
+        height: '100%',
+        backgroundColor: '#F4F4F4',
+        paddingBottom: 10,
     },
     countTrainsText: {
         textAlign: 'center',
-        marginVertical: 10,
+        backgroundColor: 'white',
+        paddingVertical: 10,
         fontSize: 15,
         color: theme.MEDIUM_GRAY,
         fontWeight: theme.WEIGHT_SEMIBOLD,
