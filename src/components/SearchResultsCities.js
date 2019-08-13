@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, View, ActivityIndicator} from 'react-native';
 import {Text} from "react-native-elements";
 import CityTile from "./CityTile";
 import theme from '../../theme';
@@ -63,14 +63,13 @@ class SearchResultsCities extends Component {
                 ))}
             </ScrollView>;
         } else {
-            content = <View><Text>LOADING</Text></View>;
+            content = <View style={styles.loadingContainer}>
+                <ActivityIndicator size='large' color={theme.PRIMARY_COLOR} />
+                <Text style={styles.loadingText}>Chargement des destinations...</Text>
+            </View>;
         }
 
-        return (
-            <View>
-                {content}
-            </View>
-        );
+        return content;
     }
 
     onCityTiledPress(destination) {
@@ -98,6 +97,16 @@ const styles = StyleSheet.create({
     destTile: {
         marginTop: 10,
     },
+    loadingContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    loadingText: {
+        fontSize: 20,
+        marginTop: 10,
+    }
 });
 
 export default withNavigation(SearchResultsCities);
