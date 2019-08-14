@@ -24,10 +24,8 @@ export default class SearchBar extends Component {
 
 const styles = StyleSheet.create({
     box: {
-        borderWidth: 1,
         height: 40,
         borderRadius: 5,
-        borderColor: theme.MEDIUM_GRAY,
         backgroundColor: 'white',
         shadowColor: "#000",
         shadowOffset: {

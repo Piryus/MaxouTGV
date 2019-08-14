@@ -7,6 +7,7 @@ import CitySearchScreen from "./CitySearch";
 import DateScreen from './Date';
 import SearchResults from '../components/SearchResultsCities';
 import CityScreen from './City';
+import theme from '../../theme';
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -155,13 +156,15 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
     layout: {
         flex: 1,
-        marginHorizontal: 10,
+        backgroundColor: theme.PRIMARY_COLOR,
     },
     searchBox: {
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'stretch',
-        marginBottom: 15,
+        paddingBottom: 30,
+        paddingHorizontal: 10,
+
     },
     departInput: {
         fontSize: 24,

@@ -60,7 +60,7 @@ export default class SearchResultsFares extends Component {
 const styles = StyleSheet.create({
     wrapper: {
         height: '100%',
-        backgroundColor: '#F4F4F4',
+        backgroundColor: theme.BACKGROUND_COLOR,
         paddingBottom: 10,
     },
     countTrainsText: {

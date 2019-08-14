@@ -11,4 +11,5 @@ export default {
     SECONDARY_TEXT: '#757575',
     DIVIDER_COLOR: '#BDBDBD',
     WEIGHT_SEMIBOLD: '600',
+    BACKGROUND_COLOR: '#F4F4F4',
 }

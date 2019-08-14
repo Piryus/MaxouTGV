@@ -11,7 +11,7 @@ class SearchResultsCities extends Component {
         super(props);
         this.state = {
             loading: false,
-            cityTiles : new Set(),
+            cityTiles: new Set(),
         }
     }
 
@@ -53,18 +53,21 @@ class SearchResultsCities extends Component {
     render() {
         let content;
         if (!this.state.loading) {
-            content = <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
-                <Text h4 style={styles.recoText}>{this.state.cityTiles.size} destinations trouvées</Text>
-                {Array.from(this.state.cityTiles).sort().map((dest, index) => (
-                    <CityTile key={dest}
-                              destination={dest}
-                              onPress={() => this.onCityTiledPress(dest)}
-                              style={styles.destTile}/>
-                ))}
-            </ScrollView>;
+            content =
+                <View style={styles.resultBox}>
+                    <Text style={styles.countCityText}>{this.state.cityTiles.size} destinations trouvées</Text>
+                    <ScrollView contentContainerStyle={styles.destContainer} style={styles.wrapper}>
+                        {Array.from(this.state.cityTiles).sort().map((dest, index) => (
+                            <CityTile key={dest}
+                                      destination={dest}
+                                      onPress={() => this.onCityTiledPress(dest)}
+                                      style={styles.destTile}/>
+                        ))}
+                    </ScrollView>
+                </View>;
         } else {
             content = <View style={styles.loadingContainer}>
-                <ActivityIndicator size='large' color={theme.PRIMARY_COLOR} />
+                <ActivityIndicator size='large' color={theme.PRIMARY_COLOR}/>
                 <Text style={styles.loadingText}>Chargement des destinations...</Text>
             </View>;
         }
@@ -82,11 +85,21 @@ class SearchResultsCities extends Component {
 }
 
 const styles = StyleSheet.create({
-    wrapper: {
-        marginBottom: 5,
+    resultBox: {
+        backgroundColor: 'white',
+        borderTopRightRadius: 25,
+        borderTopLeftRadius: 25,
     },
-    recoText: {
-        color: theme.PRIMARY_COLOR,
+    wrapper: {
+        paddingBottom: 5,
+        backgroundColor: theme.BACKGROUND_COLOR,
+    },
+    countCityText: {
+        textAlign: 'center',
+        paddingVertical: 10,
+        fontSize: 15,
+        color: theme.MEDIUM_GRAY,
+        fontWeight: theme.WEIGHT_SEMIBOLD,
     },
     destContainer: {
         flexDirection: 'column',
@@ -101,7 +114,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
     },
     loadingText: {
         fontSize: 20,

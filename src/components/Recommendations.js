@@ -27,7 +27,11 @@ export default class Recommendations extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        marginBottom: 5,
+        backgroundColor: 'white',
+        paddingHorizontal: 10,
+        paddingBottom: 5,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
     },
     recoText: {
       color: theme.PRIMARY_COLOR,
