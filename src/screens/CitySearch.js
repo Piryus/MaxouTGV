@@ -13,7 +13,7 @@ export default class CitySearchScreen extends Component<Props> {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         fetch('https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=origine')
             .then(response => response.json())
             .then((responseJson) => {
@@ -21,8 +21,10 @@ export default class CitySearchScreen extends Component<Props> {
                 responseJson.facet_groups[0].facets.forEach(facet => {
                     cityList.add(facet.name)
                 });
+                const sortedCities = Array.from(cityList).sort();
                 this.setState({
-                    cities: Array.from(cityList).sort()
+                    cities: sortedCities,
+                    citiesMatchingSearch: sortedCities,
                 })
             });
     }
