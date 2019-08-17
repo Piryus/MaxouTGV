@@ -4,7 +4,6 @@ import {Text} from "react-native-elements";
 import CityTile from "./CityTile";
 import theme from '../../theme';
 import {withNavigation} from 'react-navigation';
-import Recommendations from "./Recommendations";
 
 class SearchResultsCities extends Component {
     constructor(props) {

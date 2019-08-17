@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Platform, DatePickerAndroid} from 'react-native';
 import SearchBar from "../components/SearchBar";
-import Recommendations from "../components/Recommendations";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CitySearchScreen from "./CitySearch";
 import DateScreen from './Date';
@@ -24,8 +23,6 @@ class HomeScreen extends Component {
         let content;
         if (city !== '' && selectedDate !== '') {
             content = <SearchResults city={city} date={this.state.date}/>;
-        } else {
-            content = <Recommendations />;
         }
 
         return (
