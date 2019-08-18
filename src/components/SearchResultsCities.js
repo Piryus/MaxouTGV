@@ -85,6 +85,7 @@ class SearchResultsCities extends Component {
 
 const styles = StyleSheet.create({
     resultBox: {
+        flex: 1,
         backgroundColor: 'white',
         borderTopRightRadius: 25,
         borderTopLeftRadius: 25,

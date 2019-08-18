@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Platform, DatePickerAndroid} from 'react-native';
+import {View, StyleSheet, Platform, DatePickerAndroid, Image, Text} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CitySearchScreen from "./CitySearch";
@@ -27,6 +27,14 @@ class HomeScreen extends Component {
 
         return (
             <View style={styles.layout}>
+                <View style={styles.logoBox}>
+                    <Image
+                        style={styles.logo}
+                        resizeMode='contain'
+                        source={require('../../assets/logo/logo.png')}
+                    />
+                    <Text style={styles.logoText}>MaxouTGV</Text>
+                </View>
                 <View style={styles.searchBox}>
                     <SearchBar message={city}
                                placeholder={"D'où souhaitez-vous partir ?"}
@@ -154,11 +162,28 @@ const styles = StyleSheet.create({
     layout: {
         flex: 1,
         backgroundColor: theme.PRIMARY_COLOR,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+    },
+    logoBox: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        marginTop: 10,
+        marginLeft: 10,
+    },
+    logo: {
+        width: 40,
+        height: 49,
+    },
+    logoText: {
+        fontFamily: "Roboto",
+        marginLeft: 10,
+        fontSize: 30,
+        color: 'white',
     },
     searchBox: {
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
         paddingBottom: 30,
         paddingHorizontal: 10,
 
