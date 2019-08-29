@@ -25,7 +25,7 @@ class CityScreen extends Component {
         });
         const title =
             <View style={headerStyles.headerTitleLayout}>
-                <Text style={headerStyles.headerTitleTripText}>{departure} <Icon name='arrow-forward' size={15}/> {destination}</Text>
+                <Text style={headerStyles.headerTitleTripText} numberOfLines={1}>{departure} <Icon name='arrow-forward' size={15}/> {destination}</Text>
                 <Text style={headerStyles.headerDate}>{this.formatDate(date)}</Text>
             </View>;
         return ({
