@@ -38,7 +38,15 @@ class SearchResultsCities extends Component {
         fetch('https://ressources.data.sncf.com/api/records/1.0/search/?dataset=tgvmax&rows=0&facet=destination&refine.date=' + formattedDate + '&refine.origine=' + city + '&refine.od_happy_card=OUI')
             .then(response => response.json())
             .then((responseJson) => {
-                responseJson.facet_groups[0].facets.forEach(facet => {
+                // Retrieves the facets group corresponding to destination facet
+                let facetName = '';
+                let facetNb = -1;
+                while(facetName !== 'destination') {
+                    facetNb++;
+                    facetName = responseJson.facet_groups[facetNb].name;
+                }
+                // Retrieves each destination available
+                responseJson.facet_groups[facetNb].facets.forEach(facet => {
                     this.setState({
                         cityTiles: new Set(this.state.cityTiles).add(facet.name)
                     });
