@@ -23,9 +23,8 @@ export default class DestTile extends Component {
     render() {
         return (
             <View style={[styles.tile, this.props.style]}>
+                <Text style={styles.hours}>{this.props.departure} <Icon name='arrow-forward' size={20}/> {this.props.arrival}</Text>
                 <Text style={styles.duration}><Icon name={'stopwatch'} size={15}/> {this.duration}</Text>
-                <Text style={styles.hours}><Icon name={'clock'} size={15}/> {this.props.departure} - {this.props.arrival}</Text>
-                <Text style={styles.trip}>{this.props.origin} <Icon name={'arrow-forward'} size={15}/> {this.props.destination}</Text>
             </View>
         );
     }
@@ -37,15 +36,7 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 10,
         backgroundColor: 'white',
-        flexDirection: 'row',
-    },
-    trip: {
-        padding: 5,
-        fontSize: 15,
-        color: theme.PRIMARY_TEXT,
-        fontWeight: theme.WEIGHT_SEMIBOLD,
-        alignSelf: 'flex-end',
-        position: 'absolute',
+        flexDirection: 'column',
     },
     duration: {
         padding: 5,
@@ -53,9 +44,9 @@ const styles = StyleSheet.create({
         fontWeight: theme.WEIGHT_SEMIBOLD,
     },
     hours: {
+        fontSize: 20,
         padding: 5,
-        color: theme.MEDIUM_GRAY,
+        color: 'black',
         fontWeight: '900',
-        marginLeft: 'auto',
     }
 });
