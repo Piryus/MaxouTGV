@@ -49,6 +49,7 @@ export default class SearchResultsFares extends Component {
                                   destination={record.fields.destination}
                                   departure={record.fields.heure_depart}
                                   arrival={record.fields.heure_arrivee}
+                                  trainId={record.fields.train_no}
                                   style={styles.destTile}/>
                     ))}
                 </ScrollView>

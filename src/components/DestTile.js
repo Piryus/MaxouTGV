@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import theme from '../../theme';
 import Icon from "./Icon";
 
@@ -25,6 +25,7 @@ export default class DestTile extends Component {
             <View style={[styles.tile, this.props.style]}>
                 <Text style={styles.hours}>{this.props.departure} <Icon name='arrow-forward' size={20}/> {this.props.arrival}</Text>
                 <Text style={styles.duration}><Icon name={'stopwatch'} size={15}/> {this.duration}</Text>
+                <Text style={styles.trainId}><Image source={require('../../assets/sncf_logo.png')} /> {this.props.trainId}</Text>
             </View>
         );
     }
@@ -48,5 +49,11 @@ const styles = StyleSheet.create({
         padding: 5,
         color: 'black',
         fontWeight: '900',
+    },
+    trainId: {
+        position: 'absolute',
+        right: 10,
+        bottom: 10,
+        fontSize: 12,
     }
 });
