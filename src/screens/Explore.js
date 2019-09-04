@@ -21,20 +21,23 @@ class HomeScreen extends Component {
         const selectedDate = this.getFormattedDate();
 
         let content;
+        let logo = <View style={styles.logoBox}>
+            <Image
+                style={styles.logo}
+                resizeMode='contain'
+                source={require('../../assets/logo/logo.png')}
+            />
+            <Text style={styles.logoText}>MaxouTGV</Text>
+        </View>;
         if (city !== '' && selectedDate !== '') {
             content = <SearchResults city={city} date={this.state.date}/>;
+            logo = null;
         }
+
 
         return (
             <View style={styles.layout}>
-                <View style={styles.logoBox}>
-                    <Image
-                        style={styles.logo}
-                        resizeMode='contain'
-                        source={require('../../assets/logo/logo.png')}
-                    />
-                    <Text style={styles.logoText}>MaxouTGV</Text>
-                </View>
+                {logo}
                 <View style={styles.searchBox}>
                     <SearchBar message={city}
                                placeholder={"D'où souhaitez-vous partir ?"}
