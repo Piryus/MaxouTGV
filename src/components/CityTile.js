@@ -8,9 +8,15 @@ export default class CityTile extends Component {
     }
 
     render() {
+        let imgPath;
+        switch(this.props.destination) {
+            default:
+                imgPath = require('../../assets/cities/placeholder.png');
+        }
+
         return (
             <TouchableOpacity onPress={this.props.onPress}>
-                <ImageBackground source={require('../../assets/lyon.jpg')} style={[styles.tile, this.props.style]}>
+                <ImageBackground source={imgPath} style={[styles.tile, this.props.style]}>
                     <Text style={styles.trip}>{this.props.destination}</Text>
                 </ImageBackground>
             </TouchableOpacity>
