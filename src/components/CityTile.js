@@ -10,6 +10,23 @@ export default class CityTile extends Component {
     render() {
         let imgPath;
         switch(this.props.destination) {
+            case 'LYON (gares intramuros)':
+            case 'LYON ST EXUPERY':
+                imgPath = require('../../assets/cities/lyon.jpg');
+                break;
+            case 'ALBI MADELEINE':
+            case 'ALBI VILLE':
+                imgPath = require('../../assets/cities/albi.jpg');
+                break;
+            case 'ANDORRE':
+                imgPath = require('../../assets/cities/andorre.jpg');
+                break;
+            case 'ANNECY':
+                imgPath = require('../../assets/cities/annecy.jpg');
+                break;
+            case 'AVIGNON CENTRE':
+                imgPath = require('../../assets/cities/avignon.jpg');
+                break;
             default:
                 imgPath = require('../../assets/cities/placeholder.png');
         }
