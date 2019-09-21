@@ -27,6 +27,9 @@ export default class CityTile extends Component {
             case 'AVIGNON CENTRE':
                 imgPath = require('../../assets/cities/avignon.jpg');
                 break;
+            case 'AIX EN PROVENCE TGV':
+                imgPath = require('../../assets/cities/aix.jpg');
+                break;
             default:
                 imgPath = require('../../assets/cities/placeholder.png');
         }
