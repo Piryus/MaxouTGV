@@ -30,6 +30,9 @@ export default class CityTile extends Component {
             case 'AIX EN PROVENCE TGV':
                 imgPath = require('../../assets/cities/aix.jpg');
                 break;
+            case 'GRENOBLE':
+                imgPath = require('../../assets/cities/grenoble.jpg');
+                break;
             default:
                 imgPath = require('../../assets/cities/placeholder.png');
         }
