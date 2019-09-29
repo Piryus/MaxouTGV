@@ -36,8 +36,12 @@ export default class CityTile extends Component {
             case 'FUTUROSCOPE':
                 imgPath = require('../../assets/cities/futuroscope.jpg');
                 break;
+            case 'BIARRITZ':
+                imgPath = require('../../assets/cities/biarritz.jpg');
+                break;
             default:
                 imgPath = require('../../assets/cities/placeholder.png');
+                break;
         }
 
         return (
